@@ -1,10 +1,10 @@
 == TinyTodos - Your lightweight Todo-Helper
 
-Welcome To TinyTodos, a simple Todo-Helper written in Ruby on Rails
+Welcome To TinyTodos, a simple Todo-Helper written in "Ruby on Rails", beautified by "Twitter Bootstrap"
 
 == Setup
 
-1. Goto app/controllers/* and modify the http_basic_authetication_with Method with your credentials
+1. Goto app/controllers/todos_controller.rb and modify the http_basic_authetication_with Method with your credentials
        http_basic_authenticate_with :name => "name", :password => "password" to  http_basic_authenticate_with :name => "YOURNAME", :password => "YOURPASSWORD"
 
 2. Use it and have fun!
