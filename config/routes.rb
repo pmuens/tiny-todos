@@ -1,4 +1,4 @@
 TinyTodos::Application.routes.draw do
-  get "home/index"
-  root :to => 'home#index'
+  resources :todos
+  root :to => 'todos#index'
 end
