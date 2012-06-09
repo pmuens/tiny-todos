@@ -1,6 +1,4 @@
-class Todo < ActiveRecord::Base
-  http_basic_authenticate_with :name => "name", :password => "password", :only => :show
-  
+class Todo < ActiveRecord::Base  
   attr_accessible :content, :title
   
   has_many :comments, :dependent => :destroy
