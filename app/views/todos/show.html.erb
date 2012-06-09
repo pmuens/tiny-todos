@@ -1,48 +1,77 @@
-<p id="notice"><%= notice %></p>
+<!-- The Todos -->
+<%- model_class = @todo.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Title:</b>
-  <%= @todo.title %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @todo.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
+  <dd><%= @todo.content %></dd>
+</dl>
 
-<p>
-  <b>Content:</b>
-  <%= @todo.content %>
-</p>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              todos_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_todo_path(@todo), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              todo_path(@todo),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>
 
-<h2>Comments</h2>
-<% @todo.comments.each do |comment| %>
-  <p>
-    <b>Commenter:</b>
-    <%= comment.commenter %>
-  </p>
- 
-  <p>
-    <b>Comment:</b>
-    <%= comment.body %>
-  </p>
-  
-  <p>
-  <%= link_to 'Delte Comment', [comment.todo, comment],
-               :confirm => 'Are you sure?',
-               :method => :delete %>
-  </p>
+<br />
+<br />
+<br />
+<br />
+
+<!-- The Comments -->
+<div class="page-header">
+  <h1>Comments</h1>
+</div>
+
+<% if @todo.comments.empty? %>
+  <div class="alert alert-info">
+    No comments available yet. Write the first one now.
+  </div>
+<% else %>
+  <% @todo.comments.each do |comment| %>
+    <dl class="dl-horizontal">
+      <dt><strong>From:</strong></dt>
+      <dd><%= comment.commenter %></dd>
+      <dt><strong>Comment:</strong></dt>
+      <dd><%= comment.body %></dd>
+    </dl>
+  <% end %>
 <% end %>
 
-<h2>Add a comment:</h2>
+<br />
+<br />
+<br />
+<br />
+
+<!-- Submit a new Comment -->
+<div class="page-header">
+  <h1>Add a Comment</h1>
+</div>
+
 <%= form_for([@todo, @todo.comments.build]) do |f| %>
-  <div class="field">
-    <%= f.label :commenter %><br />
-    <%= f.text_field :commenter %>
+  <div class="control-group">
+    <%= f.label :commenter, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :commenter, :class => 'text_field' %>
+    </div>  
   </div>
-  <div class="field">
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control-group">
+    <%= f.label :body, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :body, :class => 'text_area' %>
+    </div>
+  </div> 
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
   </div>
 <% end %>
-
-<%= link_to 'Edit', edit_todo_path(@todo) %> |
-<%= link_to 'Back', todos_path %>
