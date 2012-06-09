@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  http_basic_authenticate_with :name => "name", :password => "password", :only => :show
+  http_basic_authenticate_with :name => "name", :password => "password", :only => :index
   
   def index
     @todos = Todo.all
